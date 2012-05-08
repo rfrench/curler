@@ -1,0 +1,22 @@
+{
+		"name": "curler",
+		"author": "Ryan French <frenchrya@gmail.com>",
+		"version": "0.0.1",
+		"description": "A native c++ node.js module for asynchronous http requests via libcurl.",
+		"homepage": "http://github.com/rfrench/curler",
+		"keywords": [
+			"curl", 
+			"libcurl",
+			"http"
+		],
+		"repository": {
+				"type": "git",
+				"url": "git://github.com/rfrench/curler.git"
+		},
+		"main": "curler.node",
+		"engines" : ["node >= 0.4.7"],
+		"scripts": {
+    "install" : "node-waf configure build install",
+    "preuninstall": "rm -rf build/*"
+  }
+}
