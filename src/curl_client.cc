@@ -21,6 +21,9 @@ curl_response CurlClient::Request(curl_request request) {
 		curl_easy_setopt(curl_handle, CURLOPT_CUSTOMREQUEST, request.method.c_str());
 	}
 
+	/* no signal. should stop curl from killing the thread */
+	curl_easy_setopt(curl_handle, CURLOPT_NOSIGNAL, 1L);
+
 	/* set timeout */
 	if (request.timeout > 0) {
 		curl_easy_setopt(curl_handle, CURLOPT_TIMEOUT_MS, request.timeout);
