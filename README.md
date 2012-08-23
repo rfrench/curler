@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/rfrench/curler.png)](http://travis-ci.org/rfrench/curler)
 # curler
 A native c++ node.js module for asynchronous http requests via libcurl.
 
