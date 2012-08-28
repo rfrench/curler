@@ -3,6 +3,7 @@
 #include <v8.h>
 #include <node.h>
 #include <curl/curl.h>
+#include <algorithm>
 #include "curl_client.h"
 
 using namespace std;
@@ -132,7 +133,7 @@ class Curler: ObjectWrap
 		static int RequestWorker (eio_req *req) {
 			request_thread_data *rtd = static_cast<request_thread_data *> (req->data);
 
-			CurlClient::CurlClient* curlClient = new CurlClient::CurlClient();
+			CurlClient* curlClient = new CurlClient();
 			rtd->response = curlClient->Request(rtd->request);
 			delete curlClient;
 
