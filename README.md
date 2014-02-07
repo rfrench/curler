@@ -12,6 +12,8 @@ A native c++ node.js module for asynchronous http requests via libcurl.
  - `url`: request url. (required)
  - `method`: HTTP method type. Defaults to `GET`. (can be anything)
  - `headers`: Optional JSON key/value array of the request headers.
+ - `userAgent`: Optional custom user agent.
+ - `proxy`: Optional proxy support. (i.e. http://proxy.example.com:80)
  - `data`: Optional request body data.
  - `timeout`: Total request timeout (connection/response) in milliseconds.
  - `connectionTimeout`: Connection timeout in milliseconds.
@@ -21,7 +23,7 @@ A native c++ node.js module for asynchronous http requests via libcurl.
 ### GET request
 ``` js
 var curler = require("curler").Curler;
-var curlClient = new curler();
+var curl = new curler();
 
 var options = {
   method: "GET",
@@ -29,7 +31,7 @@ var options = {
 };
 
 var startDate = Date.now();
-curlClient.request(options, function(err, res, bodyData) {
+curl.request(options, function(err, res, bodyData) {
   var duration = (Date.now() - startDate);
   if (err) {
     console.log(err);
@@ -46,13 +48,14 @@ curlClient.request(options, function(err, res, bodyData) {
 ### POST request (body data)
 ``` js
 var curler = require("curler").Curler;
-var curlClient = new curler();
+var curl = new curler();
 
 var data = JSON.stringify({ hello: 'world' });
 
 var options = {
   method: "POST",
   url: 'http://www.example.com/',
+  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3',
   headers: {
     'Content-Type': 'application/json',
     'Connection': 'Keep-Alive'
@@ -63,7 +66,7 @@ var options = {
 };
 
 var startDate = Date.now();
-curlClient.request(options, function(err, res, bodyData) {
+curl.request(options, function(err, res, bodyData) {
   var duration = (Date.now() - startDate);
   if (err) {
     console.log(err);
@@ -78,6 +81,5 @@ curlClient.request(options, function(err, res, bodyData) {
 ```
 
 ## TODO
-- Proxy support (http/https)
 - Allow Expect: 100-Continue to be configurable, rather than always off
 - Load a queue of curl handles when the module loads (ghetto connection pooling). Need a deconstructor in curler.cc that works first!
