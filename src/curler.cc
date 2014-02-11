@@ -142,7 +142,7 @@ class Curler: ObjectWrap
       rtd->cb = Persistent<Function>::New(cb);
       req->data = rtd;
 
-      uv_queue_work(uv_default_loop(), req, request_worker, request_complete);
+      uv_queue_work(uv_default_loop(), req, request_worker, (uv_after_work_cb)request_complete);
 
       return scope.Close(args.This());
     }
@@ -235,7 +235,6 @@ Persistent<FunctionTemplate> Curler::s_ct;
 extern "C" {
   static void init (Handle<Object> target)
   {
-    eio_set_min_parallel(25);
     Curler::Init(target);
   }
 
